@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:id = "@+id/mainLayout"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent">
+
+    <!-- INTRO LAYOUT -->
+    <RelativeLayout
+        android:id="@+id/introLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible">
+
+        <Button
+            android:id="@+id/introLogInButton"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="100dp"
+            android:background="@drawable/my_button"
+            android:text="Log In"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:translationY="-40dp"
+            android:onClick="introLogIn"/>
+
+        <Button
+            android:id="@+id/introSignUpButton"
+            android:layout_width="300dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="50dp"
+            android:background="@drawable/my_button"
+            android:text="Sign Up"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="120dp"
+            android:onClick="introSignUp"/>
+
+        <ImageView
+            android:id = "@+id/mainBackgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"/>
+
+        <ImageView
+            android:id="@+id/mainLayoutLogoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/mrgency_full"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY= "-250dp"/>
+
+        <TextView
+            android:id="@+id/introCopyRigthTextView"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="All rights reserved © 2020 by team G"
+            android:textColor="#808080"
+            android:translationY="635dp"/>
+
+    </RelativeLayout>
+
+    <!-- LOG IN LAYOUT -->
+    <RelativeLayout
+        android:id = "@+id/logInLayout"
+        android:layout_width = "match_parent"
+        android:layout_height = "match_parent"
+        android:visibility = "invisible">
+
+        <ImageView
+            android:id = "@+id/logInBackgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"/>
+
+        <ImageView
+            android:id="@+id/logInLayoutLogoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/mrgency_full"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY= "-250dp"/>
+
+        <EditText
+            android:id="@+id/logInEmailTextView"
+            android:layout_width="275dp"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-75dp"
+            android:hint="Email Address"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="textEmailAddress"
+            android:scrollHorizontally="true"
+            android:singleLine="true"/>
+
+        <EditText
+            android:id="@+id/logInPasswordTextView"
+            android:layout_width="275dp"
+            android:layout_height="75dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="25dp"
+            android:hint="Password"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="textPassword"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <TextView
+            android:id="@+id/logInCopyRigthTextView"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="All rights reserved © 2020 by team G"
+            android:textColor="#808080"
+            android:translationY="635dp"/>
+
+        <Button
+            android:id="@+id/logInButton"
+            android:layout_width="275dp"
+            android:layout_height="75dp"
+            android:background="@drawable/my_button"
+            android:text="Log In"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="150dp"
+            android:onClick="logIn"/>
+
+        <ImageButton
+            android:id="@+id/logInBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backbutton"
+            android:translationX="10dp"
+            android:translationY="200dp"
+            android:onClick="backFromLogIn"/>
+
+    </RelativeLayout>
+
+    <!-- SIGN UP LAYOUT -->
+    <RelativeLayout
+        android:id="@+id/signUpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id = "@+id/signUpBackgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"/>
+
+        <ImageView
+            android:id="@+id/signUpLayoutLogoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src = "@drawable/mrgency_full"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY= "-250dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="-123dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpFirstNameTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-125dp"
+            android:hint="First Name"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="-73dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpLastNameTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-75dp"
+            android:hint="Last Name"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="text"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="-23dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpDateOfBirthTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-25dp"
+            android:hint="Date of Birth"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"
+            android:focusable="false"
+            android:inputType="date"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="22dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpPhoneNumberTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="25dp"
+            android:hint="Phone Number"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="phone"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="72dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpEmailTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="75dp"
+            android:hint="example@gmail.com"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="textEmailAddress"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpPasswordTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="125dp"
+            android:hint="Password"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="textPassword"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="*"
+            android:textColor="@color/startColor"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationX="-155dp"
+            android:translationY="122dp"
+            android:textSize="25dp"
+            android:scrollbars = "vertical"/>
+
+        <EditText
+            android:id="@+id/signUpCertificationIdTextView"
+            android:layout_width="275dp"
+            android:layout_height="40dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="175dp"
+            android:hint="Certification ID"
+            android:textSize="20dp"
+            android:paddingLeft="20sp"
+            android:background="@drawable/border"
+            android:inputType="number"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:scrollbars = "vertical"/>
+
+        <Button
+            android:id="@+id/signUpSignUpButton"
+            android:layout_width="275dp"
+            android:layout_height="75dp"
+            android:background="@drawable/my_button"
+            android:text="Sign up"
+            android:textColor="#FFFFFF"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="265dp"
+            android:onClick="signUp"/>
+
+        <TextView
+            android:id="@+id/signUpCopyRigthTextView"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:text="All rights reserved © 2020 by team G"
+            android:textColor="#808080"
+            android:translationY="690dp"/>
+
+        <ImageButton
+            android:id="@+id/signUpBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backbutton"
+            android:translationX="10dp"
+            android:translationY="200dp"
+            android:onClick="backFromSignUp"/>
+    </RelativeLayout>
+
+    <!-- APP LAYOUT -->
+    <RelativeLayout
+        android:id="@+id/appLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible">
+
+        <ImageView
+            android:id = "@+id/appBackgroundImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/background"/>
+
+        <ImageView
+            android:id="@+id/appTopBorderImageView"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:background="@color/colorTopBorder"/>
+
+        <ImageView
+            android:id="@+id/appLogoImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/mrgency_logo"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:translationY="-315dp"/>
+
+        <ImageButton
+            android:id="@+id/profileLogoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-320dp"
+            android:translationX="-165dp"
+            android:src="@drawable/profile"
+            android:background="@null"/>
+
+        <ImageButton
+            android:id="@+id/bellLogoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="-325dp"
+            android:translationX="165dp"
+            android:src="@drawable/bell_on"
+            android:background="@null"/>
+
+        <TextView
+            android:id="@+id/emergencyTipsTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Emergency Tips"
+            android:textStyle="bold"
+            android:textSize="25dp"
+            android:layout_centerVertical="true"
+            android:translationX="10dp"
+            android:translationY="-250dp"/>
+
+        <TextView
+            android:id="@+id/emergencyTipsTextView"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:text="· Stay calm and try to keep the patient calm.\n\n· Don’t move a patient who was injured in an automobile accident or fall, or who was found unconscious.\n\n· Quickly identify the number of victims involved and the extent of their injuries or illnesses.\n\n·	Don’t give an injured person anything to eat or drink (unless instructed by the 911 dispatcher). \n\n·	Have someone watch for the ambulance and show the crew how to get to the patient. (This is especially important in an apartment or office building, or if your address is hard to see from the street)."
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:translationX="10dp"
+            android:translationY="-60dp"/>
+
+        <TextView
+            android:id="@+id/alertTextView"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:text="•	Pressing the ALERT button will immediately put you in direct contact with a paramedic dispatcher."
+            android:textColor="#FF0000"
+            android:textStyle="italic"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:translationX="10dp"
+            android:translationY="145dp"/>
+
+        <ImageButton
+            android:id="@+id/alertImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:translationY="260dp"
+            android:src="@drawable/alert_button"
+            android:background="@null"
+            android:onClick="alert"/>
+
+        <TextView
+            android:id="@+id/alertButtonTextView"
+            android:layout_width="355dp"
+            android:layout_height="wrap_content"
+            android:text="⚠️ ALERT ⚠️"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="55sp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:translationY="260dp"/>
+
+    </RelativeLayout>
+</RelativeLayout>
+
