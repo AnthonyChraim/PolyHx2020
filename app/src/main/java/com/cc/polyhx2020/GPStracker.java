@@ -14,6 +14,8 @@ public class GPStracker implements LocationListener {
         context = c;
     }
 
+
+
     public Location getLocation(){
 
         LocationManager lm = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);

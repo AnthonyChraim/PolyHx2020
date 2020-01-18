@@ -9,6 +9,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -34,6 +35,23 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    LocationManager locationManager;
+    LocationListener locationListener;
+    Location l;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+        }
+    }
+
+    String police = "4389289807";
     ImageButton alertImageButton;
     String txtMobile = "5143588519";
     private static final int RECORD_REQUEST_CODE = 100;
@@ -51,6 +69,38 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+//        locationListener = new LocationListener() {
+//            @Override
+//            public void onLocationChanged(Location location) {
+//                Log.i("Location", location.toString());
+//            }
+//
+//            @Override
+//            public void onStatusChanged(String provider, int status, Bundle extras) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderEnabled(String provider) {
+//
+//            }
+//
+//            @Override
+//            public void onProviderDisabled(String provider) {
+//
+//            }
+//        };
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+//            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+//
+//        } else{
+//
+//            l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//
+//        }
+
         //permission for sending SMS
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS}, RECORD_REQUEST_CODE);
         alertImageButton = findViewById(R.id.alertImageButton);
@@ -59,24 +109,27 @@ public class MainActivity extends AppCompatActivity {
         alertImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
-                alertDialog.setTitle("Alert");
-                alertDialog.setMessage("You will be put in contact with your local emergency number, and the nearest helper will be contacted. \n" +
-                        "Do you wish to continue?");
+                alertDialog.setTitle("WARNING");
+                alertDialog.setMessage("Are you sure there’s an emergency that requires immediate assistance?");
                 alertDialog.setCancelable(true);
 
                 //add positive scenario to send coordinates to helper and call 911
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "Yes",
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "NO",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                sendSMSMessage();
+                                dialog.dismiss();
                             }
                         });
 
-                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Cancel",
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Yes, call 911",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
+                                sendSMSMessage();
+                                String s = "tel:" + police;
+                                Intent intent = new Intent(Intent.ACTION_CALL);
+                                intent.setData(Uri.parse(s));
+                                startActivity(intent); //Put phone permission on the app
                             }
                         });
                 alertDialog.show();
@@ -122,17 +175,52 @@ public class MainActivity extends AppCompatActivity {
     public void sendSMSMessage() {
 
         try{
-                GPStracker g = new GPStracker(getApplicationContext());
-                Location l = g.getLocation();
-                if (l != null) {
-                    double lat = l.getLatitude();
-                    double lon = l.getLongitude();
-                    String message = "http://www.google.com/maps/place/" + lat + "," + lon;
-                    SmsManager smgr = SmsManager.getDefault();
-                    smgr.sendTextMessage(txtMobile, null, message, null, null);
-
-                    Toast.makeText(MainActivity.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+            locationListener = new LocationListener() {
+                @Override
+                public void onLocationChanged(Location location) {
+                    Log.i("Location", location.toString());
                 }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+
+                }
+
+                @Override
+                public void onProviderEnabled(String provider) {
+
+                }
+
+                @Override
+                public void onProviderDisabled(String provider) {
+
+                }
+            };
+            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+            } else{
+                l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            }
+
+            l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+            if (l != null) {
+               double lat = l.getLatitude();
+               double lon = l.getLongitude();
+               String message = "http://www.google.com/maps/place/" + lat + "," + lon;
+               SmsManager smgr = SmsManager.getDefault();
+               smgr.sendTextMessage(txtMobile, null, message, null, null);
+               Toast.makeText(MainActivity.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                double lat = 45.52531509;
+                double lon = -73.6444297;
+                String message = "http://www.google.com/maps/place/" + lat + "," + lon;
+                SmsManager smgr = SmsManager.getDefault();
+                smgr.sendTextMessage(txtMobile, null, message, null, null);
+                Toast.makeText(MainActivity.this, "SMS Sent UnSuccessfully", Toast.LENGTH_SHORT).show();
+            }
         }
         catch (Exception e){
             Log.e("The Error", e.toString());

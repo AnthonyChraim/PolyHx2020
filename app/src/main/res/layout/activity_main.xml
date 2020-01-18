@@ -66,7 +66,7 @@
             android:paddingLeft="10dp"
             android:text="All rights reserved © 2020 by team G"
             android:textColor="#808080"
-            android:translationY="635dp"/>
+            android:translationY="690dp"/>
 
     </RelativeLayout>
 
@@ -132,7 +132,7 @@
             android:paddingLeft="10dp"
             android:text="All rights reserved © 2020 by team G"
             android:textColor="#808080"
-            android:translationY="635dp"/>
+            android:translationY="690dp"/>
 
         <Button
             android:id="@+id/logInButton"
@@ -439,7 +439,7 @@
             android:layout_centerVertical="true"
             android:translationY="-320dp"
             android:translationX="-165dp"
-            android:src="@drawable/profile"
+            android:src="@drawable/profile_icon"
             android:background="@null"/>
 
         <ImageButton
@@ -450,41 +450,16 @@
             android:layout_centerVertical="true"
             android:translationY="-325dp"
             android:translationX="165dp"
-            android:src="@drawable/bell_on"
+            android:src="@drawable/bell_icon"
             android:background="@null"/>
 
-        <TextView
-            android:id="@+id/emergencyTipsTitleTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Emergency Tips"
-            android:textStyle="bold"
-            android:textSize="25dp"
-            android:layout_centerVertical="true"
-            android:translationX="10dp"
-            android:translationY="-250dp"/>
-
-        <TextView
-            android:id="@+id/emergencyTipsTextView"
-            android:layout_width="355dp"
-            android:layout_height="wrap_content"
-            android:text="· Stay calm and try to keep the patient calm.\n\n· Don’t move a patient who was injured in an automobile accident or fall, or who was found unconscious.\n\n· Quickly identify the number of victims involved and the extent of their injuries or illnesses.\n\n·	Don’t give an injured person anything to eat or drink (unless instructed by the 911 dispatcher). \n\n·	Have someone watch for the ambulance and show the crew how to get to the patient. (This is especially important in an apartment or office building, or if your address is hard to see from the street)."
-            android:textSize="16sp"
-            android:layout_centerVertical="true"
-            android:translationX="10dp"
-            android:translationY="-60dp"/>
-
-        <TextView
-            android:id="@+id/alertTextView"
-            android:layout_width="355dp"
-            android:layout_height="wrap_content"
-            android:text="•	Pressing the ALERT button will immediately put you in direct contact with a paramedic dispatcher."
-            android:textColor="#FF0000"
-            android:textStyle="italic"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:translationX="10dp"
-            android:translationY="145dp"/>
+        <ImageView
+            android:id="@+id/emergencyTipsImageView"
+            android:layout_width="380dp"
+            android:layout_height="485dp"
+            android:src="@drawable/tips"
+            android:translationY="95dp"
+            android:translationX="10dp"/>
 
         <ImageButton
             android:id="@+id/alertImageButton"
@@ -492,23 +467,19 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:translationY="260dp"
+            android:translationY="285dp"
             android:src="@drawable/alert_button"
             android:background="@null"
             android:onClick="alert"/>
 
-        <TextView
-            android:id="@+id/alertButtonTextView"
-            android:layout_width="355dp"
+        <ImageView
+            android:id="@+id/alertImageIcon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="⚠️ ALERT ⚠️"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="55sp"
+            android:src="@drawable/tel_icon"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:translationY="260dp"/>
+            android:translationY="285dp"/>
 
     </RelativeLayout>
 </RelativeLayout>
