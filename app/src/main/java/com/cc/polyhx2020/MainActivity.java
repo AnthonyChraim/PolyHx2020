@@ -305,4 +305,8 @@ public class MainActivity extends AppCompatActivity {
         introLayout.setVisibility(View.VISIBLE);
     }
 
+//    public  void goToCPR(View view){
+//        startActivity(new Intent(MainActivity.this, TrainerCPR.class));
+//    }
+
 }
