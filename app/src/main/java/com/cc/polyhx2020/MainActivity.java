@@ -183,7 +183,8 @@ public class MainActivity extends AppCompatActivity {
             if (l != null) {
                double lat = l.getLatitude();
                double lon = l.getLongitude();
-               String message = "MRGENCY WARNING!\n medical assistance needed at location: \nhttp://www.google.com/maps/place/" + lat + "," + lon;
+               String message = "MRGENCY WARNING!\n medical assistance needed at location: " +
+                                            "\nhttp://www.google.com/maps/place/" + lat + "," + lon;
                SmsManager smgr = SmsManager.getDefault();
                smgr.sendTextMessage(txtMobile, null, message, null,
                                    null);
@@ -191,7 +192,8 @@ public class MainActivity extends AppCompatActivity {
             else{
                 double lat = 45.52531509;
                 double lon = -73.6444297;
-                String message = "MRGENCY WARNING!\n medical assistance needed at location: \nhttp://www.google.com/maps/place/" + lat + "," + lon;
+                String message = "MRGENCY WARNING!\n medical assistance needed at location: " +
+                                            "\nhttp://www.google.com/maps/place/" + lat + "," + lon;
                 SmsManager smgr = SmsManager.getDefault();
                 smgr.sendTextMessage(txtMobile, null, message, null,
                                     null);
@@ -272,7 +274,8 @@ public class MainActivity extends AppCompatActivity {
         else{
             Boolean checkmail =db.chkmail(email);
             if(checkmail == true){
-                Boolean insert = db.insert(email, password, firstName, lastName, dateOfBirth, phoneNumber, certificationId);
+                Boolean insert = db.insert(email, password, firstName, lastName, dateOfBirth,
+                                                phoneNumber, certificationId);
                 if(insert == true){
                     Toast.makeText(getApplicationContext(), "Registering...",
                             Toast.LENGTH_SHORT).show();
@@ -294,6 +297,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void backFromSignUp(View view) {
         signUpLayout.setVisibility(View.INVISIBLE);
+        introLayout.setVisibility(View.VISIBLE);
+    }
+
+    public void backToMainMenu(View view) {
+        appLayout.setVisibility(View.INVISIBLE);
         introLayout.setVisibility(View.VISIBLE);
     }
 

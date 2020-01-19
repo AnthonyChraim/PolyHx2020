@@ -9,7 +9,7 @@
         android:id="@+id/introLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible">
+        android:visibility="invisible">
 
         <Button
             android:id="@+id/introLogInButton"
@@ -406,7 +406,7 @@
         android:id="@+id/appLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageView
             android:id = "@+id/appBackgroundImageView"
@@ -422,14 +422,16 @@
             android:layout_height="75dp"
             android:background="@color/colorTopBorder"/>
 
-        <ImageView
-            android:id="@+id/appLogoImageView"
+        <ImageButton
+            android:id="@+id/appLogoImageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/mrgency_logo"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:translationY="-315dp"/>
+            android:translationY="-315dp"
+            android:onClick="backToMainMenu"
+            android:background="@null"/>
 
         <ImageButton
             android:id="@+id/profileLogoButton"
@@ -438,7 +440,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:translationY="-320dp"
-            android:translationX="-165dp"
+            android:translationX="-175dp"
             android:src="@drawable/profile_icon"
             android:background="@null"/>
 
@@ -449,7 +451,7 @@
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:translationY="-325dp"
-            android:translationX="165dp"
+            android:translationX="175dp"
             android:src="@drawable/bell_icon"
             android:background="@null"/>
 
