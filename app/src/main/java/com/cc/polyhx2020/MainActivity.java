@@ -35,6 +35,8 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    DatabaseHelper db;
+
     LocationManager locationManager;
     LocationListener locationListener;
     Location l;
@@ -57,49 +59,20 @@ public class MainActivity extends AppCompatActivity {
     private static final int RECORD_REQUEST_CODE = 100;
 
     ArrayList<User> users = new ArrayList<>();
-
     RelativeLayout introLayout, logInLayout, signUpLayout, appLayout;
     TextView logInEmailTextView, logInPasswordTextView;
-    TextView signUpFirstNameTextView, signUpLastNameTextView, signUpDateOfBirthTextView,
+    EditText signUpFirstNameTextView, signUpLastNameTextView, signUpDateOfBirthTextView,
              signUpPhoneNumberTextView, signUpEmailTextView, signUpPasswordTextView,
              signUpCertificationIdTextView;
+    Button signUpSignButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
-//        locationListener = new LocationListener() {
-//            @Override
-//            public void onLocationChanged(Location location) {
-//                Log.i("Location", location.toString());
-//            }
-//
-//            @Override
-//            public void onStatusChanged(String provider, int status, Bundle extras) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderEnabled(String provider) {
-//
-//            }
-//
-//            @Override
-//            public void onProviderDisabled(String provider) {
-//
-//            }
-//        };
-//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-//            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-//
-//        } else{
-//
-//            l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//
-//
-//        }
 
         //permission for sending SMS
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS}, RECORD_REQUEST_CODE);
@@ -138,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
 
         initializeLayouts();
         initializeLogInTextViews();
-        initializeSignUpTextViews();
 
         //Date formatting
         final Calendar cal = Calendar.getInstance();
@@ -242,17 +214,6 @@ public class MainActivity extends AppCompatActivity {
         logInPasswordTextView = findViewById(R.id.logInPasswordTextView);
     }
 
-    // Initialize all SignUpLayout Text Views
-    public void initializeSignUpTextViews() {
-        signUpFirstNameTextView = findViewById(R.id.signUpFirstNameTextView);
-        signUpLastNameTextView = findViewById(R.id.signUpLastNameTextView);
-        signUpDateOfBirthTextView = findViewById(R.id.signUpDateOfBirthTextView);
-        signUpPhoneNumberTextView = findViewById(R.id.signUpPhoneNumberTextView);
-        signUpEmailTextView = findViewById(R.id.signUpEmailTextView);
-        signUpPasswordTextView = findViewById(R.id.signUpPasswordTextView);
-        signUpCertificationIdTextView = findViewById(R.id.signUpCertificationIdTextView);
-    }
-
     // BUTTONS LOGIC
 
     public void introLogIn(View view) {
@@ -266,14 +227,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void logIn(View view) {
-        logInLayout.setVisibility(View.INVISIBLE);
-        createUser();
-        appLayout.setVisibility(View.VISIBLE);
+        db = new DatabaseHelper(this);
+        logInEmailTextView = (EditText) findViewById(R.id.logInEmailTextView);
+        logInPasswordTextView = (TextView)findViewById(R.id.logInPasswordTextView);
+        String email = logInEmailTextView.getText().toString();
+        String password = logInPasswordTextView.getText().toString();
+        Boolean checkemailpassword = db.emailpassword(email, password);
+        if(checkemailpassword == true) {
+            Toast.makeText(getApplicationContext(), "Successfully login in", Toast.LENGTH_SHORT).show();
+            logInLayout.setVisibility(View.INVISIBLE);
+            appLayout.setVisibility(View.VISIBLE);
+        }
+        else
+            Toast.makeText(getApplicationContext(), "Wrong email or password", Toast.LENGTH_SHORT).show();
+
     }
 
     public void signUp(View view) {
-        signUpLayout.setVisibility(View.INVISIBLE);
-        appLayout.setVisibility(View.VISIBLE);
+        signUpFirstNameTextView = (EditText)findViewById(R.id.signUpFirstNameTextView);
+        signUpLastNameTextView = (EditText)findViewById(R.id.signUpLastNameTextView);
+        signUpDateOfBirthTextView =(EditText) findViewById(R.id.signUpDateOfBirthTextView);
+        signUpPhoneNumberTextView = (EditText)findViewById(R.id.signUpPhoneNumberTextView);
+        signUpEmailTextView = (EditText)findViewById(R.id.signUpEmailTextView);
+        signUpPasswordTextView = (EditText)findViewById(R.id.signUpPasswordTextView);
+        signUpCertificationIdTextView = (EditText) findViewById(R.id.signUpCertificationIdTextView);
+        signUpSignButton = (Button) findViewById(R.id.signUpSignUpButton);
+        db = new DatabaseHelper(this);
+        String firstName = signUpFirstNameTextView.getText().toString();
+        String lastName = signUpLastNameTextView.getText().toString();
+        String dateOfBirth = signUpDateOfBirthTextView.getText().toString();
+        String phoneNumber = signUpPhoneNumberTextView.getText().toString();
+        String email = signUpEmailTextView.getText().toString();
+        String password = signUpPasswordTextView.getText().toString();
+        String certificationId = signUpCertificationIdTextView.getText().toString();
+        if (firstName.equals("") || lastName.equals("") || dateOfBirth.equals("")|| phoneNumber.equals("") || email.equals("") || password.equals(""))
+            Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+        else{
+            Boolean checkmail =db.checkmail(email);
+            if(checkmail == true){
+                Boolean insert = db.insert(email, firstName, lastName, dateOfBirth, phoneNumber, password, certificationId);
+                if(insert == true){
+                    Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                    signUpLayout.setVisibility(View.INVISIBLE);
+                    appLayout.setVisibility(View.VISIBLE);
+                }
+            }
+            else{
+                Toast.makeText(getApplicationContext(),"Email Already exists", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     public void backFromLogIn(View view) {
@@ -284,22 +286,5 @@ public class MainActivity extends AppCompatActivity {
     public void backFromSignUp(View view) {
         signUpLayout.setVisibility(View.INVISIBLE);
         introLayout.setVisibility(View.VISIBLE);
-    }
-
-    // Creates a User or a Helper depending on if the CertificationID field was filled or not
-    public void createUser() {
-        String firstName = signUpFirstNameTextView.getText().toString();
-        String lastName = signUpLastNameTextView.getText().toString();
-        String dateOfBirth = signUpDateOfBirthTextView.getText().toString();
-        String phoneNumber = signUpPhoneNumberTextView.getText().toString();
-        String email = signUpEmailTextView.getText().toString();
-        String password = signUpPasswordTextView.getText().toString();
-        String certificationId = signUpCertificationIdTextView.getText().toString();
-
-        if (certificationId.isEmpty()) {
-            users.add(new User(firstName, lastName, dateOfBirth, phoneNumber, email, password)); // * ADD TO DATABASE
-        } else {
-            users.add(new Helper(firstName, lastName, dateOfBirth, phoneNumber, email, password, certificationId)); // * ADD TO DATABASE
-        }
     }
 }
