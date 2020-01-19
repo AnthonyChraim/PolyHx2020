@@ -27,7 +27,6 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
@@ -35,17 +34,32 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final int RECORD_REQUEST_CODE = 100;
+
     DatabaseHelper db;
 
+    String police = "4389289807";
+    String txtMobile = "5143588519";
     LocationManager locationManager;
     LocationListener locationListener;
     Location l;
 
+    ArrayList<User> users = new ArrayList<>();
+    RelativeLayout introLayout, logInLayout, signUpLayout, appLayout;
+    TextView logInEmailTextView, logInPasswordTextView;
+    EditText signUpFirstNameTextView, signUpLastNameTextView, signUpDateOfBirthTextView,
+            signUpPhoneNumberTextView, signUpEmailTextView, signUpPasswordTextView,
+            signUpCertificationIdTextView;
+    Button signUpSignButton;
+    ImageButton alertImageButton;
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+        if(ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
@@ -53,41 +67,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    String police = "4389289807";
-    ImageButton alertImageButton;
-    String txtMobile = "5143588519";
-    private static final int RECORD_REQUEST_CODE = 100;
-
-    ArrayList<User> users = new ArrayList<>();
-    RelativeLayout introLayout, logInLayout, signUpLayout, appLayout;
-    TextView logInEmailTextView, logInPasswordTextView;
-    EditText signUpFirstNameTextView, signUpLastNameTextView, signUpDateOfBirthTextView,
-             signUpPhoneNumberTextView, signUpEmailTextView, signUpPasswordTextView,
-             signUpCertificationIdTextView;
-    Button signUpSignButton;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        //permission for sending SMS
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS, Manifest.permission.SEND_SMS}, RECORD_REQUEST_CODE);
+        // Permission for sending SMS
+        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_SMS,
+                Manifest.permission.SEND_SMS}, RECORD_REQUEST_CODE);
         alertImageButton = findViewById(R.id.alertImageButton);
 
-        //sending SMS containing location
+        //Sending SMS containing location
         alertImageButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("WARNING");
-                alertDialog.setMessage("Are you sure there’s an emergency that requires immediate assistance?");
+                alertDialog.setMessage("Are you sure there’s an emergency " +
+                                       "that requires immediate assistance?");
                 alertDialog.setCancelable(true);
 
-                //add positive scenario to send coordinates to helper and call 911
-                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "NO",
+                // Add positive scenario to send coordinates to helper and call 911
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.dismiss();
@@ -114,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Date formatting
         final Calendar cal = Calendar.getInstance();
-        final EditText signUpDateOfBirthEditText = (EditText) findViewById(R.id.signUpDateOfBirthTextView);
+        final EditText signUpDateOfBirthEditText = findViewById(R.id.signUpDateOfBirthTextView);
         final DatePickerDialog.OnDateSetListener  date = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -122,28 +123,26 @@ public class MainActivity extends AppCompatActivity {
                 cal.set(Calendar.MONTH, month);
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-                String myFormat = "dd/MM/yy"; //In which you need put here
+                String myFormat = "dd/MM/yy"; // In which you need put here
                 SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.CANADA);
 
                 signUpDateOfBirthEditText.setText(sdf.format(cal.getTime()));
-
             }
         };
 
         signUpDateOfBirthEditText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(MainActivity.this, date, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show();
+                new DatePickerDialog(MainActivity.this, date, cal.get(Calendar.YEAR),
+                        cal.get(Calendar.MONTH),cal.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
 
-
-        //Phone number fromatting
-        EditText signUpPhoneNumberTextView = (EditText) findViewById(R.id.signUpPhoneNumberTextView);
+        //Phone number formatting
+        EditText signUpPhoneNumberTextView = findViewById(R.id.signUpPhoneNumberTextView);
         signUpPhoneNumberTextView.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
     }
 
-    //
     public void sendSMSMessage() {
 
         try{
@@ -169,34 +168,37 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             };
-            if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+
+            if(ContextCompat.checkSelfPermission(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                ActivityCompat.requestPermissions(this,
+                        new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
 
             } else{
                 l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             }
 
             l = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
             if (l != null) {
                double lat = l.getLatitude();
                double lon = l.getLongitude();
-               String message = "http://www.google.com/maps/place/" + lat + "," + lon;
+               String message = "MRGENCY WARNING!\n medical assistance needed at location: \nhttp://www.google.com/maps/place/" + lat + "," + lon;
                SmsManager smgr = SmsManager.getDefault();
-               smgr.sendTextMessage(txtMobile, null, message, null, null);
-               Toast.makeText(MainActivity.this, "SMS Sent Successfully", Toast.LENGTH_SHORT).show();
+               smgr.sendTextMessage(txtMobile, null, message, null,
+                                   null);
             }
             else{
                 double lat = 45.52531509;
                 double lon = -73.6444297;
-                String message = "http://www.google.com/maps/place/" + lat + "," + lon;
+                String message = "MRGENCY WARNING!\n medical assistance needed at location: \nhttp://www.google.com/maps/place/" + lat + "," + lon;
                 SmsManager smgr = SmsManager.getDefault();
-                smgr.sendTextMessage(txtMobile, null, message, null, null);
-                Toast.makeText(MainActivity.this, "SMS Sent UnSuccessfully", Toast.LENGTH_SHORT).show();
+                smgr.sendTextMessage(txtMobile, null, message, null,
+                                    null);
             }
         }
         catch (Exception e){
             Log.e("The Error", e.toString());
-            Toast.makeText(MainActivity.this, "SMS Failed to Send, Please try again", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -215,7 +217,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // BUTTONS LOGIC
-
     public void introLogIn(View view) {
         introLayout.setVisibility(View.INVISIBLE);
         logInLayout.setVisibility(View.VISIBLE);
@@ -229,30 +230,33 @@ public class MainActivity extends AppCompatActivity {
     public void logIn(View view) {
         db = new DatabaseHelper(this);
         logInEmailTextView = (EditText) findViewById(R.id.logInEmailTextView);
-        logInPasswordTextView = (TextView)findViewById(R.id.logInPasswordTextView);
+        logInPasswordTextView = findViewById(R.id.logInPasswordTextView);
         String email = logInEmailTextView.getText().toString();
         String password = logInPasswordTextView.getText().toString();
-        Boolean checkemailpassword = db.emailpassword(email, password);
-        if(checkemailpassword == true) {
-            Toast.makeText(getApplicationContext(), "Successfully login in", Toast.LENGTH_SHORT).show();
+        Boolean Chkemailpassword = db.emailpassword(email, password);
+
+        if(Chkemailpassword == true) {
+            Toast.makeText(getApplicationContext(), "Logging In...",
+                    Toast.LENGTH_SHORT).show();
             logInLayout.setVisibility(View.INVISIBLE);
             appLayout.setVisibility(View.VISIBLE);
+        } else {
+            Toast.makeText(getApplicationContext(), "Wrong Email or Password",
+                    Toast.LENGTH_SHORT).show();
         }
-        else
-            Toast.makeText(getApplicationContext(), "Wrong email or password", Toast.LENGTH_SHORT).show();
-
     }
 
     public void signUp(View view) {
-        signUpFirstNameTextView = (EditText)findViewById(R.id.signUpFirstNameTextView);
-        signUpLastNameTextView = (EditText)findViewById(R.id.signUpLastNameTextView);
-        signUpDateOfBirthTextView =(EditText) findViewById(R.id.signUpDateOfBirthTextView);
-        signUpPhoneNumberTextView = (EditText)findViewById(R.id.signUpPhoneNumberTextView);
-        signUpEmailTextView = (EditText)findViewById(R.id.signUpEmailTextView);
-        signUpPasswordTextView = (EditText)findViewById(R.id.signUpPasswordTextView);
-        signUpCertificationIdTextView = (EditText) findViewById(R.id.signUpCertificationIdTextView);
-        signUpSignButton = (Button) findViewById(R.id.signUpSignUpButton);
+        signUpFirstNameTextView = findViewById(R.id.signUpFirstNameTextView);
+        signUpLastNameTextView = findViewById(R.id.signUpLastNameTextView);
+        signUpDateOfBirthTextView = findViewById(R.id.signUpDateOfBirthTextView);
+        signUpPhoneNumberTextView = findViewById(R.id.signUpPhoneNumberTextView);
+        signUpEmailTextView = findViewById(R.id.signUpEmailTextView);
+        signUpPasswordTextView = findViewById(R.id.signUpPasswordTextView);
+        signUpCertificationIdTextView = findViewById(R.id.signUpCertificationIdTextView);
+        signUpSignButton = findViewById(R.id.signUpSignUpButton);
         db = new DatabaseHelper(this);
+
         String firstName = signUpFirstNameTextView.getText().toString();
         String lastName = signUpLastNameTextView.getText().toString();
         String dateOfBirth = signUpDateOfBirthTextView.getText().toString();
@@ -260,20 +264,25 @@ public class MainActivity extends AppCompatActivity {
         String email = signUpEmailTextView.getText().toString();
         String password = signUpPasswordTextView.getText().toString();
         String certificationId = signUpCertificationIdTextView.getText().toString();
-        if (firstName.equals("") || lastName.equals("") || dateOfBirth.equals("")|| phoneNumber.equals("") || email.equals("") || password.equals(""))
-            Toast.makeText(getApplicationContext(), "Please fill in the required fields", Toast.LENGTH_SHORT).show();
+
+        if (firstName.equals("") || lastName.equals("") || dateOfBirth.equals("")||
+                phoneNumber.equals("") || email.equals("") || password.equals(""))
+            Toast.makeText(getApplicationContext(), "Fill in the required fields",
+                    Toast.LENGTH_SHORT).show();
         else{
-            Boolean checkmail =db.checkmail(email);
+            Boolean checkmail =db.chkmail(email);
             if(checkmail == true){
-                Boolean insert = db.insert(email, firstName, lastName, dateOfBirth, phoneNumber, password, certificationId);
+                Boolean insert = db.insert(email, password, firstName, lastName, dateOfBirth, phoneNumber, certificationId);
                 if(insert == true){
-                    Toast.makeText(getApplicationContext(), "Registered Successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Registering...",
+                            Toast.LENGTH_SHORT).show();
                     signUpLayout.setVisibility(View.INVISIBLE);
                     appLayout.setVisibility(View.VISIBLE);
                 }
             }
             else{
-                Toast.makeText(getApplicationContext(),"Email Already exists", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(),"Email already exists",
+                        Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -287,4 +296,5 @@ public class MainActivity extends AppCompatActivity {
         signUpLayout.setVisibility(View.INVISIBLE);
         introLayout.setVisibility(View.VISIBLE);
     }
+
 }

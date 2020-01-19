@@ -64,7 +64,7 @@
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="All rights reserved © 2020 by team G"
+            android:text="All rights reserved © Hackatown 2020 by team G"
             android:textColor="#808080"
             android:translationY="690dp"/>
 
@@ -130,7 +130,7 @@
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="All rights reserved © 2020 by team G"
+            android:text="All rights reserved © Hackatown 2020 by team G"
             android:textColor="#808080"
             android:translationY="690dp"/>
 
@@ -387,7 +387,7 @@
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
-            android:text="All rights reserved © 2020 by team G"
+            android:text="All rights reserved © Hackatown 2020 by team G"
             android:textColor="#808080"
             android:translationY="690dp"/>
 

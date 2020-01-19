@@ -10,7 +10,6 @@ import androidx.annotation.Nullable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-
     public DatabaseHelper(@Nullable Context context) {
         super(context, "Login.db", null, 1);
     }
@@ -18,7 +17,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("Create Table user  (email text primary key, firstName text, lastName text, dateOfBirth text, phoneNumber text, password text, certificationID text)");
-
     }
 
     @Override
@@ -43,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             return true;
     }
 
-    public Boolean checkmail(String email){
+    public Boolean chkmail(String email){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("Select * from user where email=?", new String[]{email});
         if(cursor.getCount() > 0)
@@ -60,5 +58,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         else
             return false;
     }
-
 }
