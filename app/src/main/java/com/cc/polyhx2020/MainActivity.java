@@ -1,4 +1,10 @@
 package com.cc.polyhx2020;
+/*
+Anthony Chraim
+Chris Hamaoui
+Kevin Chamoun
+Alexandre Ruest
+ */
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHelper db;
 
     String police = "4389289807";
-    String txtMobile = "5143588519";
+    String txtMobile = "4389289807";
     LocationManager locationManager;
     LocationListener locationListener;
     Location l;
@@ -190,8 +196,8 @@ public class MainActivity extends AppCompatActivity {
                                    null);
             }
             else{
-                double lat = 45.52531509;
-                double lon = -73.6444297;
+                double lat = 45.504490;
+                double lon = -73.612884;
                 String message = "MRGENCY WARNING!\n medical assistance needed at location: " +
                                             "\nhttp://www.google.com/maps/place/" + lat + "," + lon;
                 SmsManager smgr = SmsManager.getDefault();
